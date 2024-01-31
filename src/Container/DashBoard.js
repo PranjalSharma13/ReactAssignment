@@ -5,6 +5,8 @@ import Posts from '../Components/Posts';
 import NewPost from '../Components/NewPost';
 import ShowDetails from '../Components/ShowDetails';
 import "../Container/DashBoard.css"
+import API from '../Config/api';
+import AddPost from "../Components/AddPost";
 
 
 
@@ -24,14 +26,35 @@ function DashBoard() {
     const handlePostClick = (post) => {
       setSelectedPost(post);
     };
+    const handleAddPost = (newPost) => {
+      setPostsState([...postsState, newPost]);
+    };
     const handleUpdateName = (newName) => {
       if (selectedPost) {
         const updatedPosts = postsState.map(post =>
           post.id === selectedPost.id ? { ...post, title: newName } : post
         );
-        setPostsState(updatedPosts);
+        postsState(updatedPosts);
       }
     };
+    const handlePostDelete = () => {
+      setSelectedPost(null);
+  
+      // Fetch updated posts after deletion
+      API.get('posts')
+        .then(response => {
+          setPostsState(response.data);
+        })
+        .catch(err => console.log(err.message));
+    };
+
+    useEffect(() => {
+      API.get('posts')
+          .then(response => {
+            setPostsState(response.data);
+          })
+          .catch(err => console.log(err.message));
+  }, []);
   
     
   return (<div>
@@ -41,7 +64,8 @@ function DashBoard() {
       ))}
     </div>
     <NewPost onUpdateName={handleUpdateName}/>
-    <div>{selectedPost && <ShowDetails post={selectedPost} />}</div>
+    <AddPost onAddPost={handleAddPost} />
+    <div>{selectedPost && <ShowDetails post={selectedPost} onDelete={handlePostDelete} />}</div>
     </div>
   )
 }
