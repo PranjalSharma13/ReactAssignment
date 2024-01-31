@@ -1,0 +1,38 @@
+/* ShowDetails.css */
+
+.show-details-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .show-details-container h1 {
+    color: #333;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 8px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+  }
+  
+  /* Add any additional styling as needed */
+  

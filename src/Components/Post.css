@@ -3,6 +3,6 @@
   padding: 5vh;
 margin: 2vh;
   color: white;
-  background-color: blue;
-  border: 1vh solid darkblue; 
+  background-color: rgb(101, 101, 231);
+  border: 0.5vh solid rgb(31, 31, 65); 
 }

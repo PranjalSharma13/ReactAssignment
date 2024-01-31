@@ -9,7 +9,7 @@ const Post = (props) => {
    
     <div className="post-container" >
       <div>
-        <h2>{props.post.name}</h2>
+        <h2>{props.post.title}</h2>
       </div>
       <div>
         <h3>Author: {props.post.author}</h3>
