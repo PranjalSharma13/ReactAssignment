@@ -8,7 +8,7 @@ function AddPost({ onAddPost }) {
     const [content, setContent] = useState('');
     const handleAddPost = async () => {
         try {
-          // Make a POST request to your backend API endpoint
+          
           const response = await API.post('posts',{
             title,
             author,
@@ -18,7 +18,7 @@ function AddPost({ onAddPost }) {
           const newPost = response.data;
           console.log(newPost);
     
-        //   onAddPost(newPost);
+          onAddPost(newPost);
             setTitle('');
           setAuthor('');
           setContent('');

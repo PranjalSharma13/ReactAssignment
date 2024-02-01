@@ -1,28 +1,28 @@
-import React, {useEffect} from 'react';
+
+import React, { useEffect } from 'react';
 import "../Components/ShowDetails.css";
 import API from '../Config/api';
+import Comment from './Comment';
 
-function ShowDetails(props) {
-
-
+const ShowDetails = React.memo((props) => {
   useEffect(() => {
     const postId = props.post.id;
-    console.log("PostId"+postId);
+    console.log("PostId" + postId);
 
     API.get(`posts/${postId}`)
       .then(response => {
-       console.log(response.data);
+        console.log(response.data);
       })
       .catch(error => {
         console.error('Error fetching post details:', error);
       });
   }, [props.post.id]);
+
   const handleDelete = () => {
     const postId = props.post.id;
 
-   API.delete(`posts/${postId}`)
+    API.delete(`posts/${postId}`)
       .then(() => {
-       
         console.log('Post deleted successfully');
         props.onDelete();
       })
@@ -38,9 +38,8 @@ function ShowDetails(props) {
       <div className="comments-container">
         <h3>Comments:</h3>
         {props.post.comments && props.post.comments.map(comment => (
-  <h5 key={comment.id}>{comment.name}</h5>
-))}
-
+          <Comment key={comment.id} comment={comment} />
+        ))}
       </div>
       <div className="action-buttons">
         <button className="edit-button">Edit</button>
@@ -48,6 +47,6 @@ function ShowDetails(props) {
       </div>
     </div>
   );
-}
+});
 
-export default ShowDetails
+export default ShowDetails;

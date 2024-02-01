@@ -7,10 +7,7 @@ import ShowDetails from '../Components/ShowDetails';
 import "../Container/DashBoard.css"
 import API from '../Config/api';
 import AddPost from "../Components/AddPost";
-
-
-
-
+import {useSelectedPost} from "../Components/SelectedPostProvider";
 function DashBoard() {
   
     const [postsState, setPostsState] = useState(
@@ -21,10 +18,12 @@ function DashBoard() {
         ]
     );
     const [selectedPost, setSelectedPost] = useState(null);
-    const [newTitle, setNewTitle] = useState('');
+    const { selectedPostId, setSelectedPostId } = useSelectedPost();
+   
 
     const handlePostClick = (post) => {
       setSelectedPost(post);
+      setSelectedPostId(post.id); 
     };
     const handleAddPost = (newPost) => {
       setPostsState([...postsState, newPost]);
@@ -34,14 +33,13 @@ function DashBoard() {
         const updatedPosts = postsState.map(post =>
           post.id === selectedPost.id ? { ...post, title: newName } : post
         );
-        postsState(updatedPosts);
+        setPostsState(updatedPosts);
       }
     };
     const handlePostDelete = () => {
       setSelectedPost(null);
-  
-      // Fetch updated posts after deletion
-      API.get('posts')
+      setSelectedPostId(null); 
+           API.get('posts')
         .then(response => {
           setPostsState(response.data);
         })
